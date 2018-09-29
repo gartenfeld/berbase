@@ -1,20 +1,11 @@
-const Agent = require('socks').Agent;
-const logIP = require('./myip');
+const requestOptions = require('./proxy_settings');
 
-var proxy = {
-  ipaddress: "127.0.0.1",
-  port: 9050,
-  type: 5
-};
+const getIP = require('./ip');
 
-var requestOptions = {
-  agentClass: Agent,
-  agentOptions: {
-    proxy: proxy,
-    timeout: 30000,
-    command: 'connect'
-  }
-};
+getIP().then(data => {
+  console.log("Naked address: " + data);
+});
 
-logIP();
-logIP(requestOptions);
+getIP(requestOptions).then(data => {
+  console.log("Proxy address: " + data);
+});
